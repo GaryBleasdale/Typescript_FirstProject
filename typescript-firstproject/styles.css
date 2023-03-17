@@ -31,3 +31,19 @@ body {
 .user-container {
     margin: 20px;
 }
+
+.property-image{
+    width:200px;
+    height:auto;
+}
+
+.properties{
+    display:flex;
+    flex-direction:row;
+}
+
+.single-property-container{
+    display:flex;
+    flex-direction: column;
+    margin: 10px
+}
