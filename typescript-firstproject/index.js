@@ -3,23 +3,30 @@ var userNameDisplay = document.querySelector('#user');
 var reviewTotalDisplay = document.querySelector('#reviews');
 var isOpen;
 var propertyDashboard = document.querySelector('.properties');
+var footer = document.querySelector('.footer');
+var loyaltyType;
+(function (loyaltyType) {
+    loyaltyType[loyaltyType["Gold"] = 0] = "Gold";
+    loyaltyType[loyaltyType["Silver"] = 1] = "Silver";
+    loyaltyType[loyaltyType["Bronze"] = 2] = "Bronze";
+})(loyaltyType || (loyaltyType = {}));
 var reviews = [
     {
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: loyaltyType.Gold,
         date: '01-04-2021'
     },
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: loyaltyType.Bronze,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
+        loyaltyUser: loyaltyType.Silver,
         date: '27-03-2021'
     },
 ];
@@ -67,7 +74,8 @@ var properties = [
 function showReviewTotal(value, reviews, loyaltyUser) {
     reviewTotalDisplay.innerHTML = 'review total ' + value.toString();
     reviewTotalDisplay.innerHTML += " | last reviewed by: ".concat(reviews[0].name);
-    loyaltyUser ? reviewTotalDisplay.innerHTML += "&#9733" : reviewTotalDisplay.innerHTML += "";
+    console.log(loyaltyUser);
+    loyaltyUser == 0 ? reviewTotalDisplay.innerHTML += "&#9733" : reviewTotalDisplay.innerHTML += "";
 }
 showReviewTotal(reviews.length, reviews, reviews[0].loyaltyUser);
 var you = {
@@ -90,3 +98,5 @@ var displayProperties = function (properties) {
     });
 };
 displayProperties(properties);
+var currentLocation = ['Salto de Pirapora', '12:20PM', 23];
+footer.innerHTML = "".concat(currentLocation[0], " ").concat(currentLocation[1], " ").concat(currentLocation[2], "C");

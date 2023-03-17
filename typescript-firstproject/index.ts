@@ -3,31 +3,34 @@ const userNameDisplay = document.querySelector('#user')
 const reviewTotalDisplay = document.querySelector('#reviews')
 let isOpen: boolean
 const propertyDashboard = document.querySelector('.properties')
+const footer = document.querySelector('.footer')
 
-
+enum loyaltyType  {
+    'Gold', 'Silver', 'Bronze'
+}
 
 const reviews : {
     name: string;
     stars:number;
-    loyaltyUser:boolean;
+    loyaltyUser:loyaltyType;
     date: string
 }[] = [
     {
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: loyaltyType.Gold,
         date: '01-04-2021'
     },
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: loyaltyType.Bronze,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
+        loyaltyUser: loyaltyType.Silver,
         date: '27-03-2021'
     },
 ]
@@ -87,10 +90,11 @@ const properties : {
 ]
 
 
-function showReviewTotal (value: number, reviews : object, loyaltyUser : boolean) {  
+function showReviewTotal (value: number, reviews : object, loyaltyUser : loyaltyType) {  
     reviewTotalDisplay!.innerHTML = 'review total ' + value.toString() 
     reviewTotalDisplay!.innerHTML += ` | last reviewed by: ${reviews[0].name}`
-    loyaltyUser ? reviewTotalDisplay!.innerHTML += `&#9733` : reviewTotalDisplay!.innerHTML += `` 
+    console.log(loyaltyUser)
+    loyaltyUser === 0 ? reviewTotalDisplay!.innerHTML += `&#9733` : reviewTotalDisplay!.innerHTML += `` 
     
 }
 
@@ -120,10 +124,13 @@ function populateUser(isReturning : boolean, userName: string ) {
 
 populateUser(you.isReturning, you.firstName)
 
-const displayProperties =(properties)=>{
+const displayProperties =(properties : {}[])=>{
     properties.forEach((e : object)=>{
         propertyDashboard!.innerHTML += `<div class='single-property-container'><h2>${e['title']}</h2><img src=${e['image']} class='property-image'/></div>`
     })
 }
 
 displayProperties(properties)
+
+let currentLocation : [string, string, number]= ['Salto de Pirapora', '12:20PM', 23]
+footer!.innerHTML = `${currentLocation[0]} ${currentLocation[1]} ${currentLocation[2]}C`
